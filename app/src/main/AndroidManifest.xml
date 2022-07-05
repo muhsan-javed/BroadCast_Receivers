@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BroadCastRecevers"
         tools:targetApi="31">
+        <service
+            android:name=".MyIntentService"
+            android:exported="false"></service>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,19 +28,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-       <!-- <receiver android:name=".MyBroadcastReceiver"
+        <!--
+ <receiver android:name=".MyBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </receiver>-->
-
-        <receiver android:name=".MyBroadcastReceiver"
+        </receiver>
+        -->
+        <receiver
+            android:name=".MyBroadcastReceiver"
             android:exported="true">
-            <intent-filter >
-                <action android:name="com.muhsanapps.receiverapp.ACTION_SEND"/>
+            <intent-filter>
+                <action android:name="com.muhsanapps.receiverapp.ACTION_SEND" />
             </intent-filter>
         </receiver>
     </application>

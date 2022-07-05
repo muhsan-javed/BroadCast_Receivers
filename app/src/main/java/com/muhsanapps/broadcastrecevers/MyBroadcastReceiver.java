@@ -3,7 +3,8 @@ package com.muhsanapps.broadcastrecevers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
+import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
@@ -11,8 +12,28 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        int initialCode = getResultCode();
+        String initialData = getResultData();
+        Bundle bundle = getResultExtras(true);
+        String stringExtra = bundle.getString("message_key");
 
-        Toast.makeText(context, "My BR Called", Toast.LENGTH_SHORT).show();
+        initialCode++;
+        stringExtra += "->BR: Sender ";
+
+        String output = "initial Code: " + initialCode + "\n" +
+                "initial Data: " + initialData + "\n" +
+                "string extra: " + stringExtra;
+
+        Toast.makeText(context, output, Toast.LENGTH_SHORT).show();
+        Log.d("TAG", "onReceiver: "+ output);
+
+        initialData = "BR: Sender";
+        bundle.putString("message_key", stringExtra);
+
+        setResult(initialCode, initialData, bundle);
+
+
+        // Toast.makeText(context, "My BR Called: Sender app  ", Toast.LENGTH_SHORT).show();
 
        /* if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
 

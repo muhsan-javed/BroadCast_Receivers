@@ -1,12 +1,16 @@
 package com.muhsanapps.broadcastrecevers;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class MainActivity extends AppCompatActivity {
 //    MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
@@ -28,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
     };*/
 
 
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String data = intent.getStringExtra("key");
+            textView.setText(data);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +58,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent("com.muhsanapps.receiverapp.ACTION_SEND");
+                Intent serviceIntent = new Intent(MainActivity.this, MyIntentService.class);
+
+                serviceIntent.putExtra("key", "initial value");
+
+                startService(serviceIntent);
+
+                //Ordered Broadcast Receiver -Send One Broadcast to Multiple Receivers
+
+             /*   Intent intent = new Intent("com.muhsanapps.receiverapp.ACTION_SEND");
 
                 intent.setPackage("com.muhsanapps.receiverapp");
 
@@ -55,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 //            sendOrderedBroadcast(intent,null,new MyBroadcastReceiver(),null,
 //                    RESULT_CANCELED, "Start", bundle);
                 sendOrderedBroadcast(intent, null);
-                //sendBroadcast(intent);
+                //sendBroadcast(intent);*/
 
               /*  Intent intent = new Intent("com.muhsanapps.receiverapp.ACTION_SEND");
                 intent.putExtra("com.muhsanapps.EXTRA_DATA", "Hello from Sender App");
@@ -97,7 +117,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-  /*  @Override
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter intentFilter =new IntentFilter(MyIntentService.MY_SERVICE_INTENT);
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mReceiver);
+    }
+
+    /*  @Override
     protected void onStart() {
         super.onStart();
         IntentFilter  intentFilter = new IntentFilter("com.muhsanapps.receiverapp.ACTION_SEND");

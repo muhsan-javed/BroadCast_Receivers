@@ -5,13 +5,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.PatternMatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
@@ -56,18 +61,36 @@ public class MainActivity extends AppCompatActivity {
 
                 sendBroadcast(intent);*/
 
-                Intent intent = new Intent();
+//                Intent intent = new Intent();
                // intent1.setClass(MainActivity.this, MyBroadcastReceiver.class);
 
-                ComponentName componentName = new
-                        ComponentName("com.muhsanapps.broadcastrecevers",
-                        "com.muhsanapps.receiverapp.MyDemoReciver");
-                intent.setComponent(componentName);
+//                ComponentName componentName = new
+//                        ComponentName("com.muhsanapps.broadcastrecevers",
+//                        "com.muhsanapps.receiverapp.MyDemoReciver");
+//                intent.setComponent(componentName);
 
                // Intent intent = new Intent(MainActivity.this, MyBroadcastReceiver.class);
 
 
-                sendBroadcast(intent);
+//                sendBroadcast(intent);
+
+                Intent intent = new Intent("com.muhsanapps.receiverapp.ACTION_SEND");
+
+                PackageManager packageManager = getPackageManager();
+
+                List<ResolveInfo> resolveInfos = packageManager.queryBroadcastReceivers(intent,0);
+
+                for (ResolveInfo info: resolveInfos){
+
+                    ComponentName componentName = new
+                            ComponentName(info.activityInfo.packageName,info.activityInfo.name);
+
+                    intent.setComponent(componentName);
+
+                    sendBroadcast(intent);
+                }
+
+
 
             }
         });

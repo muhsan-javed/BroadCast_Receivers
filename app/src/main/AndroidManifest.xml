@@ -33,8 +33,11 @@
             </intent-filter>
         </receiver>-->
 
-        <receiver android:name=".MyBroadcastReceiver">
-
+        <receiver android:name=".MyBroadcastReceiver"
+            android:exported="true">
+            <intent-filter >
+                <action android:name="com.muhsanapps.receiverapp.ACTION_SEND"/>
+            </intent-filter>
         </receiver>
     </application>
 

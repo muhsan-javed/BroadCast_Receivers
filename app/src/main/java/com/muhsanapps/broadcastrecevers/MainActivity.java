@@ -1,6 +1,7 @@
 package com.muhsanapps.broadcastrecevers;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -13,9 +14,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
     Button btnBroadCastReceiver;
     TextView textView;
-    private int counter =1;
+
+    /*private int counter =1;
 
     private BroadcastReceiver mInnerReceiver = new BroadcastReceiver(){
         @Override
@@ -27,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
                 counter++;
             }
         }
-    };
+    };*/
 
-    MyBroadcastReceiver myBroadcastReceiver = new MyBroadcastReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +42,30 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.tv);
 
 
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+      /*  IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
-        registerReceiver(myBroadcastReceiver, intentFilter);
+        registerReceiver(myBroadcastReceiver, intentFilter);*/
 
 
         btnBroadCastReceiver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent("com.muhsanapps.receiverapp.ACTION_SEND");
+              /*  Intent intent = new Intent("com.muhsanapps.receiverapp.ACTION_SEND");
                 intent.putExtra("com.muhsanapps.EXTRA_DATA", "Hello from Sender App");
+
+                sendBroadcast(intent);*/
+
+                Intent intent = new Intent();
+               // intent1.setClass(MainActivity.this, MyBroadcastReceiver.class);
+
+                ComponentName componentName = new
+                        ComponentName("com.muhsanapps.broadcastrecevers",
+                        "com.muhsanapps.receiverapp.MyDemoReciver");
+                intent.setComponent(componentName);
+
+               // Intent intent = new Intent(MainActivity.this, MyBroadcastReceiver.class);
+
 
                 sendBroadcast(intent);
 
@@ -58,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+  /*  @Override
     protected void onStart() {
         super.onStart();
         IntentFilter  intentFilter = new IntentFilter("com.muhsanapps.receiverapp.ACTION_SEND");
@@ -70,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         unregisterReceiver(mInnerReceiver);
     }
-
+*/
     /*    @Override
     protected void onDestroy() {
         super.onDestroy();

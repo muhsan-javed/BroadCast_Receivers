@@ -33,6 +33,9 @@
             </intent-filter>
         </receiver>-->
 
+        <receiver android:name=".MyBroadcastReceiver">
+
+        </receiver>
     </application>
 
 </manifest>

@@ -11,7 +11,10 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+
+        Toast.makeText(context, "My BR Called", Toast.LENGTH_SHORT).show();
+
+       /* if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
 
             boolean booleanExtra = intent.getBooleanExtra
                     (ConnectivityManager.CONNECTIVITY_ACTION, false);
@@ -23,7 +26,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             }
         } else if (Intent.ACTION_TIME_TICK.equals(intent.getAction())) {
             Toast.makeText(context, "Time incremented", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
 
      /*   if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())){

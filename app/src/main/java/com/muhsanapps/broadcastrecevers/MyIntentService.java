@@ -2,7 +2,6 @@ package com.muhsanapps.broadcastrecevers;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -16,7 +15,7 @@ public class MyIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         try {
-            Thread.sleep(4000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

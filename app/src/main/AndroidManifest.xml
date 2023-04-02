@@ -15,9 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BroadCastRecevers"
         tools:targetApi="31">
+
         <service
             android:name=".MyIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
@@ -28,15 +29,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--
- <receiver android:name=".MyBroadcastReceiver"
+
+<!--
+         <receiver android:name=".MyBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        -->
+-->
+
+<!--    // Explicit Broadcast-Send Broadcast from One App to Other-->
         <receiver
             android:name=".MyBroadcastReceiver"
             android:exported="true">
@@ -44,6 +48,7 @@
                 <action android:name="com.muhsanapps.receiverapp.ACTION_SEND" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>
